@@ -23,22 +23,37 @@ def pedir():
    
     
     ListaDePedidoDF.loc[len(ListaDePedidoDF)] = [num_pedido, quarto, tipo_pedido, descricao]
+    ListaDePedidoDF.to_excel("Lista.xlsx")
     print(ListaDePedidoDF)
     
 
     
 def excluir():
     global ListaDePedidoDF
+
     print(ListaDePedidoDF)
-    excluirLinha = int(input("Qual você dejesa excluir?"))
-    ListaDePedidoDF=ListaDePedidoDF[ListaDePedidoDF['num']!=excluirLinha]
+    linha = int(input("Número do pedido a excluir: ")) - 1
+    ListaDePedidoDF = ListaDePedidoDF.drop(linha)
+    ListaDePedidoDF.to_excel("Lista.xlsx")
+    
     print(ListaDePedidoDF)
 
-pedir()
-pedir()
-excluir()
-pedir()
-print(ListaDePedidoDF)
+while True:
+    escolha = str(input("O que você deseja fazer PEDIR/EXCLUIR/SAIR?")).upper()
+
+    if escolha == "PEDIR":
+        pedir()
+        print("Pedido feito com sucesso")
+    elif escolha == "EXCLUIR":
+        excluir()
+        print("Pedido excluído com sucesso")
+    elif escolha == "SAIR":
+        print("Programa fechado")
+        break
+    else:
+        print("Digite um comando válido")
+    
+ 
 
 
 
